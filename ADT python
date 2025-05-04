@@ -1,0 +1,139 @@
+A=[]
+B=[]
+a=int(input(" Enter number of elements you want in the set A: "))
+for i in range(a):
+    n=int(input(" Enter any number you want in given set"))
+    A.append(n)
+print("A:",A)
+
+b=int(input(" Enter number of elements you want in the set B: "))
+for i in range(b):
+    n=int(input(" Enter any number you want in given set"))
+    B.append(n)
+print("B:",B)
+
+Intersection=[]
+def intersection():
+    for i in range(a):
+        for j in range(b):
+            if A[i]==B[j]:
+                Intersection.append(A[i])
+    print("Interscetion",Intersection)
+intersection()            
+
+Union=[]
+def union():
+    for i in range(a):
+        Union.append(A[i])
+    for j in range(b):
+        flag=0
+        for i in range(a):
+            if A[i]==B[j]:
+               flag=1
+        if flag==0:
+            Union.append(B[j])
+    print("Union",Union)
+union()        
+
+Diff=[]
+def diff():
+    for i in range(a):
+        flag=0
+        for j in range(b):
+            if A[i]==B[j]:
+                flag=1
+        if flag==0:        
+                Diff.append(A[i])
+    print("diff",Diff)
+diff()  
+
+
+def contain(): 
+    key=int(input(" \nEnter any number you want to check:-")); 
+    for i in range(a): 
+        if A[i]==key : 
+            flag=0; 
+            if flag==1: 
+                print("\nGiven element is not present in the Set A"); 
+            else: 
+                print("\nGiven element is present in the Set A"); 
+                
+    for i in range(b): 
+        if B[i]==key : 
+            flag=0; 
+            if flag==1: 
+                print("\nGiven element is not present in the Set B"); 
+            else: 
+                print("\nGiven element is  present in the Set B"); 
+                 
+contain() 
+              
+
+Subset=[] 
+def subset(): 
+    flag=0 
+    if A in B: 
+        flag=1; 
+        print("\nSet A is mot a subset of Set B") 
+    else: 
+        print("\nSet A is a subset of Set B") 
+         
+    flag=0 
+    if B in A: 
+        flag=1 
+        print("\nSet B is not a subset of Set A") 
+    else: 
+        print("\nSet B is a subset of Set A") 
+subset() 
+ 
+
+def add():
+    n=int(input("Enter the number you want to add in set A "))
+    for i in range(a):
+        if A[i]==n:
+            print("element is already present in the set A ")
+        else:
+            A.append(n)
+            break;
+    
+    m=int(input("Enter the number you want to add in set B "))
+    for j in range(b):
+        if B[j]==m:
+            print("element is already present in the set B ")
+        else:
+            B.append(m)
+            break;
+    print("Set A",A)
+    print("Set B",B)
+add()    
+
+def remove(A,B):
+    j=int(input("Enter the number you want to remove from set A "))
+    flag=0
+    for i in range(a):
+        if A[i]==j:
+            flag=1
+            break;
+    if flag==1:
+        A.remove(j)
+           
+    l=int(input("Enter the number you want to remove from set B "))
+    flag=0
+    for j in range(b):
+        if B[j]==l:
+            flag=1
+            break;
+    if flag==1:    
+        B.remove(l)
+           
+    
+    print(" Set A after removing an element",A)
+    print(" Set B after removing an element",B)
+remove(A,B)
+
+def size():
+    print("size of set A is ",len(A))
+    print("size of set B is ",len(B))
+    
+size()
+
