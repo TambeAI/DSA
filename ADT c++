@@ -1,0 +1,224 @@
+#include<iostream>
+using namespace std;
+class set
+{
+	public:
+	int s[20],result[20];
+	int i,n;
+	void read();
+	void add();
+	void display();
+	void search();
+	void remove();
+	void intersection(set ob1,set ob2);
+	void union_(set ob1,set ob2);
+	void diff(set ob1,set ob2);
+    void subset(set ob1,set ob2);
+};
+	void set:: read()
+	{
+		  	cout<<"\n  total element in set=";
+	cin>>n;
+		for(int i=0;i<n;i++)
+		{
+			cin>>s[i];
+		}
+	}
+	void  set ::add()
+	{    int key;
+	     cout<<"\n enter the new element=";
+		 cin>>key;
+		 int f=0;
+		 for(i=0;i<n;i++)
+		 {
+		    if(s[i]==key)
+		   {f=1;
+		   	break;
+			   }	
+		} 
+		if(f==1)
+		{
+			cout<<"\n element is already presnt";
+		}
+		else
+		{     
+			s[i]=key;
+			cout<<"\n element add succesfully";
+			n++;
+		}
+	}
+	void set:: remove()
+	{
+		cout<<s[n-1]<<" is deleted";
+		n--;		
+}
+	void  set::display()
+	{   cout<<"\n element in the set=";
+		for(int j=0;j<n;j++)
+		{
+			cout<<s[j]<<" ";
+		}	
+	}
+	void set:: search()
+	{
+	     int key;
+	cout<<"\n enter the  element=";
+		cin>>key;
+		int f=0;
+		for(i=0;i<n;i++)
+		{
+		   if(s[i]==key)
+		   {f=1;
+		   	break;
+			   }	
+		} 
+		if(f==1)
+		{
+			cout<<"\n element is  presnt";
+		}
+		else
+		{     
+			cout<<"\n element is not present";	
+		}	
+	}
+	void set:: intersection(set ob1,set ob2)
+	{   cout<<"\nresult=";
+		for(i=0;i<ob1.n;i++)
+		{
+			for(int j=0;j<ob2.n;j++)
+			if(ob1.s[i]==ob2.s[j])
+			{
+			result[i]=ob1.s[i];
+			cout<<" "<<result[i];
+			}	
+		}	
+	}
+	void set::union_(set ob1,set ob2)
+	{
+		for(i=0;i<ob1.n;i++)
+		{
+			result[i]=ob1.s[i];
+		}
+		int k=ob1.n;
+		for(i=0;i<ob2.n;i++)
+		{ int f=0;
+			for(int j=0;j<ob1.n;j++)
+			{
+			
+			if(ob2.s[i]==ob1.s[j])
+			{
+				 f=1;
+			   break;
+			}}
+			if (f==0)
+			{	
+				result[k]=ob2.s[i];
+				k++;
+			}	
+		}
+		cout<<"\n result=";
+		for(int j=0;j<k;j++)
+		{
+			cout<<result[j]<<" ";
+		}	
+	}
+	void  set::diff( set ob1,set ob2) 
+	{	
+			int k=0;
+		for(i=0;i<ob1.n;i++)
+		{ int f=0;
+			for(int j=0;j<ob2.n;j++)
+			{
+			if(ob1.s[i]==ob2.s[j])
+			{
+				 f=1;
+			   break;
+			}}
+			if (f==0)
+			{	
+				result[k]=ob1.s[i];
+				k++;
+			}		
+	}
+	cout<<"\n result=";
+		for(int j=0;j<k;j++)
+		{
+			cout<<result[j]<<" ";
+		}
+}
+void set::subset(set ob1,set ob2)
+{  int f=0;
+		for(i=0;i<ob1.n;i++)
+		{  f=0;
+			for(int j=0;j<ob2.n;j++)
+			{
+			if(ob1.s[i]==ob2.s[j])
+			{
+				 f=1;
+			   break;
+			}}
+			if (f==0)
+			{
+		
+			break;
+			 }}
+			if(f==1)
+			{
+				cout<<"\n1st set is a subset of 2nd set";
+			 } 
+			 else
+			 {
+			 	cout<<"1st set is not a subset of 2nd set";	
+			 }
+}
+int main()
+{
+set ob1,ob2,ob3;
+char ch;
+int c;
+do{
+	cout<<" \n 1.read set 1 \n 2.remove \n 3.search \n 4.display \n 5.add \n 6.read set 2 \n 7.union \n 8.differance \n 9.intersection \n 10.subset ";
+	cout<<"\n enter choice : ";
+	cin>>c;
+	switch(c)
+	{
+		case 1:
+		        ob1.read();
+		    	break;           
+		case 2:
+	        	ob1.remove();
+	        	break;
+		case 3:
+		        ob1.search();
+	        	break;
+		case 4: ob1.display();
+		        break;
+		case 5: ob1.add();
+		        break;
+		case 6: ob2.read();
+		        break;
+		case 7:
+	        	ob1.display();
+		       ob2.display();
+		       ob3.union_(ob1,ob2); 
+		       break;
+	    case 8:
+	           ob1.display();
+		       ob2.display();
+		       ob3.diff(ob1,ob2);  
+			   break; 
+  	    case 9:
+		       ob1.display();
+		       ob2.display();
+		       ob3.intersection(ob1,ob2);
+		       break; 
+		case 10:
+		        ob1.display() ;
+				ob2.display() ;
+				ob3.subset(ob1 ,ob2);
+	}
+	cout<<"\n do you want continue (y/n)=";
+	cin>>ch;	
+}while(ch=='y');
+return 0;
+}
