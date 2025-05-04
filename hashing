@@ -1,0 +1,156 @@
+#include <iostream> 
+#include <string> 
+ 
+using namespace std; 
+ 
+class telephonedir { 
+public: 
+    struct user { 
+        int uid; 
+        string name; 
+        int tellno; 
+    }; 
+ 
+    telephonedir() { 
+        for (int i = 0; i < n; i++) { 
+            linearBook[i].uid = -1; 
+            linearBook[i].name = "None"; 
+            linearBook[i].tellno = 0; 
+            quadBook[i].uid = -1; 
+            quadBook[i].name = "None"; 
+            quadBook[i].tellno = 0; 
+        } 
+    } 
+ 
+    user linearBook[10]; 
+    user quadBook[10]; 
+    int n = 10; 
+    int hash, quadhash; 
+ 
+    int tempuid; 
+    string tempname; 
+    int temptellno; 
+ 
+    void linearprobe(int lin) { 
+        hash = (hash + lin) % n; // formula for linear probe 
+        if (linearBook[hash].uid == -1) { 
+            linearBook[hash].uid = tempuid; 
+            linearBook[hash].name = tempname; 
+            linearBook[hash].tellno = temptellno; 
+        } else { 
+            cout << "\nLinear Hashtable is not empty... collision occurred"; 
+            lin++; // to increase the value of i 
+            linearprobe(lin); 
+        } 
+    } 
+ 
+    void quadprobe() { 
+        for (int quad = 1; quad < n; quad++) { 
+            quadhash = (hash + quad * quad) % n; // formula for quadratic probe 
+            if (quadBook[quadhash].uid == -1) { 
+                quadBook[quadhash].uid = tempuid; 
+                quadBook[quadhash].name = tempname; 
+                quadBook[quadhash].tellno = temptellno; 
+                return; 
+            } 
+        } 
+        cout << "\nQuadratic Hashtable is full... could not insert user"; 
+    } 
+ 
+    void input() { 
+        char choice; 
+        do { 
+            cout << "\nEnter the data to be stored:" << endl; 
+            cout << "User id: "; 
+            cin >> tempuid; 
+            cout << "Name: "; 
+            cin >> tempname; 
+            cout << "Telephone number: "; 
+            cin >> temptellno; 
+ 
+            // Linear Probing 
+            hash = tempuid % n; // formula to assign the value for linear probing 
+            if (linearBook[hash].uid == -1) { 
+                linearBook[hash].uid = tempuid; 
+                linearBook[hash].name = tempname; 
+                linearBook[hash].tellno = temptellno; 
+            } else { 
+                cout << "Linear Hashtable is not empty... collision occurred"; 
+                linearprobe(1); 
+            } 
+ 
+            // Quadratic Probing 
+            quadhash = tempuid % n; // separate formula for quadratic probing 
+            if (quadBook[quadhash].uid == -1) { 
+                quadBook[quadhash].uid = tempuid; 
+                quadBook[quadhash].name = tempname; 
+                quadBook[quadhash].tellno = temptellno; 
+            } else { 
+                cout << "\nQuadratic Hashtable is not empty... collision occurred"; 
+                quadprobe(); 
+            } 
+ 
+            cout << "\nDo you want to enter another user (y/n): "; 
+            cin >> choice; 
+        } while (choice == 'y'); 
+    } 
+ 
+    void search() { 
+        int a; 
+        cout << "Enter the Uid you want to search: "; 
+        cin >> a; 
+ 
+        // Search in Linear Probing Hashtable 
+        int flag = 0; // 0 means not found, 1 means found 
+        for (int i = 0; i < n; i++) { 
+            if (linearBook[i].uid == a) { 
+                cout << "User found in Linear Hashtable: " << endl; 
+                cout << "Name: " << linearBook[i].name << endl; 
+                cout << "Telephone number: " << linearBook[i].tellno << endl; 
+                flag = 1; 
+                break; 
+            } 
+        } 
+        if (flag == 0) { 
+            cout << "User with Uid " << a << " not found in Linear Hashtable." << endl; 
+        } 
+ 
+        // Search in Quadratic Probing Hashtable 
+        flag = 0; // reset flag for quadratic probing search 
+        for (int i = 0; i < n; i++) { 
+            if (quadBook[i].uid == a) { 
+                cout << "User found in Quadratic Hashtable: " << endl; 
+                cout << "Name: " << quadBook[i].name << endl; 
+                cout << "Telephone number: " << quadBook[i].tellno << endl; 
+                flag = 1; 
+                break; 
+            } 
+        } 
+        if (flag == 0) { 
+            cout << "User with Uid " << a << " not found in Quadratic Hashtable." << endl; 
+        } 
+    } 
+ 
+    void display() { 
+        cout << "\nLinear Probing Hash Table:" << endl; 
+        cout << "\nUser id" << "\t" << "Name" << "\t" << "Tel no" << endl; 
+        for (int i = 0; i < n; i++) { 
+            cout << linearBook[i].uid << "\t" << linearBook[i].name << "\t" << linearBook[i].tellno 
+<< endl; 
+        } 
+ 
+        cout << "\nQuadratic Probing Hash Table:" << endl; 
+        cout << "\nUser id" << "\t" << "Name" << "\t" << "Tel no" << endl; 
+        for (int i = 0; i < n; i++) { 
+            cout << quadBook[i].uid << "\t" << quadBook[i].name << "\t" << quadBook[i].tellno << 
+endl; 
+        } 
+    } 
+}; 
+ 
+int main() { 
+    telephonedir t; 
+    t.input(); 
+    t.display(); 
+    t.search(); 
+} 
