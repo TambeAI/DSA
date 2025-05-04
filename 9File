@@ -35,8 +35,7 @@ int main()
  int ch,a,n,i; 
     int flag; 
  do 
- {   cout<<"\n 1.Write data \n 2.append data \n 3.read data \n 4.search data \n 5.deletion 
-of data"; 
+ {   cout<<"\n 1.Write data \n 2.append data \n 3.read data \n 4.search data \n 5.deletion ofdata"; 
   cout<<"\n Enter the your choice"; 
   cin>>ch; 
   switch(ch) 
